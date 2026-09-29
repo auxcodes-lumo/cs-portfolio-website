@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>command not found — pabanks.io</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/svg+xml" href="/assests/icons/blinking-cursor.svg">
+  <link rel="stylesheet" href="/css/terminal.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <header>
+    <span class="brand">pa@pabanks:~<span class="cursor" aria-hidden="true"></span></span>
+    <nav aria-label="primary">
+      <a href="/">home</a>
+      <a href="/contact.html">contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <pre class="boot" id="nf"></pre>
+    <p>hints: try <a href="/">/</a> · <a href="/contact.html">/contact.html</a> · <a href="/secret.html">…???</a></p>
+    <p class="dim">note: 404 means the path does not exist — not that your security is broken. (probably.)</p>
+  </main>
+
+  <footer><span class="dim">segfault (core dumped)</span></footer>
+
+  <script>
+    (() => {
+      const el = document.getElementById('nf');
+      if (!el) return;
+      const path = decodeURIComponent(location.pathname);
+      el.textContent =
+        'bash: ' + path + ': command not found\n' +
+        '\n' +
+        'searching /etc/paths … no matches\n' +
+        'querying the matrix … 0 hits\n' +
+        'asking the sysadmin … no answer (it is 3am somewhere)\n' +
+        '\n' +
+        'try: /  ·  /contact.html  ·  /secret.html\n';
+    })();
+  </script>
+</body>
+</html>

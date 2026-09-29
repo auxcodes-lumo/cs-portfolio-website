@@ -1,0 +1,15 @@
+[build]
+  functions = "netlify_functions"
+  publish = "public"
+
+# Keep the gated resume page out of search indexes
+[[headers]]
+  for = "/resume*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# Pretty API routes: /api/<fn> -> /.netlify/functions/<fn>
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

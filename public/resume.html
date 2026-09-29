@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>resume — pabanks.io</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Gated resume. A one-time token is required.">
+  <link rel="icon" type="image/svg+xml" href="/assests/icons/blinking-cursor.svg">
+  <link rel="stylesheet" href="/css/terminal.css">
+  <link rel="stylesheet" href="/css/print.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <header class="no-print">
+    <span class="brand">pa@pabanks:~<span class="cursor" aria-hidden="true"></span></span>
+    <nav aria-label="primary">
+      <a href="/">home</a>
+      <a href="/contact.html">contact</a>
+    </nav>
+  </header>
+
+  <main id="main" class="resume">
+    <!-- Gate state -->
+    <section id="gate" hidden aria-live="polite">
+      <h1>▲ access required</h1>
+      <p id="gate-msg">this resume needs a one-time token.</p>
+      <p><a class="btn" href="/"><span>[ GET ONE ]</span></a></p>
+    </section>
+
+    <!-- Resume body -->
+    <article id="resume-body" hidden>
+      <p class="faint small no-print">disclaimer: your email was logged so I know who is reading. no newsletter, not shared.</p>
+      <p class="faint small no-print" id="views-left"></p>
+      <div class="no-print row">
+        <button class="btn btn-primary" type="button" id="print-btn">[ PRINT / SAVE PDF ]</button>
+        <a class="btn" href="/contact.html">[ CONTACT ]</a>
+      </div>
+
+      <header class="resume-head">
+        <h1 data-name>YOUR.NAME</h1>
+        <p class="dim" data-title>Cyber Security</p>
+        <p class="dim" data-email>hello@pabanks.io</p>
+        <p class="dim"><span data-github>github.com/your-handle</span> · <span data-linkedin>linkedin.com/in/your-handle</span></p>
+      </header>
+
+      <section>
+        <h2>$ cat summary.md</h2>
+        <p>placeholder: two or three sentences — who you are, what you are looking for. this page is a living HTML resume: edit it directly, no PDF pipeline.</p>
+      </section>
+
+      <section>
+        <h2>$ ls experience/</h2>
+        <div class="job">
+          <h3>[JOB TITLE] — [COMPANY] <span class="dim">[20XX]–[present]</span></h3>
+          <ul>
+            <li>placeholder: an achievement with a measurable outcome…</li>
+            <li>placeholder: a tool or technology, and the impact it had…</li>
+          </ul>
+        </div>
+        <div class="job">
+          <h3>[JOB TITLE] — [COMPANY] <span class="dim">[20XX]–[20XX]</span></h3>
+          <ul>
+            <li>placeholder: second role, same treatment…</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>$ man skills</h2>
+        <ul class="skill-groups">
+          <li><span class="dim">offensive:</span> placeholder — pentesting, web app security…</li>
+          <li><span class="dim">defensive:</span> placeholder — SIEM, SOC, incident response…</li>
+          <li><span class="dim">tooling:</span> placeholder — Kali, Burp Suite, Wireshark…</li>
+          <li><span class="dim">cloud:</span> placeholder — AWS/Azure security, IAM…</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>$ cat certifications.txt</h2>
+        <ul>
+          <li>placeholder — e.g. CompTIA Security+, CEH, OSCP (add yours)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>$ cat education.txt</h2>
+        <p>placeholder — degree / bootcamp / self-taught, with year.</p>
+      </section>
+    </article>
+  </main>
+
+  <!-- Print choice: dark (brand) vs light (black & white) -->
+  <dialog id="print-modal" class="no-print" aria-labelledby="pm-title">
+    <h2 id="pm-title">$ lp -o format=?</h2>
+    <p class="dim">choose a print format:</p>
+    <div class="row">
+      <button class="btn" type="button" id="print-dark">[ DARK · amber ]</button>
+      <button class="btn" type="button" id="print-light">[ LIGHT · black &amp; white ]</button>
+      <button class="btn" type="button" id="print-cancel">[ CANCEL ]</button>
+    </div>
+  </dialog>
+
+  <footer class="no-print">
+    <span>© <span id="year"></span> <span data-name>YOUR.NAME</span> · all systems nominal</span>
+    <span><a href="/">← back to home</a></span>
+  </footer>
+
+  <script src="/js/app.js" defer></script>
+  <script src="/js/resume.js" defer></script>
+</body>
+</html>

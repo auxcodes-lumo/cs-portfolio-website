@@ -1,0 +1,13 @@
+{
+  "name": "YOUR.NAME",
+  "title": "Cyber Security",
+  "tagline": "cyber security · placeholder tagline — fill me in",
+  "email": "hello@pabanks.io",
+  "website": "https://pabanks.io",
+  "github": "github.com/your-handle",
+  "linkedin": "linkedin.com/in/your-handle",
+  "about": [
+    "placeholder: who you are in two or three sentences. personality wins here — this is a portfolio, not a wall of text.",
+    "placeholder: what you are looking for — e.g. a security engineer / analyst / pentester role where you get to break things responsibly."
+  ]
+}

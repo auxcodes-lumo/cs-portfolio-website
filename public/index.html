@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>pabanks.io — Cyber Security</title>
+  <meta name="description" content="Cyber security portfolio — whoami: a professional who breaks things so attackers can't.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" type="image/svg+xml" href="/assests/icons/blinking-cursor.svg">
+  <link rel="stylesheet" href="/css/terminal.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <header>
+    <span class="brand">pa@pabanks:~<span class="cursor" aria-hidden="true"></span></span>
+    <nav aria-label="primary">
+      <a href="/contact.html">contact</a>
+      <button class="btn" type="button" id="terminal-toggle" aria-pressed="false">[ TERMINAL ]</button>
+      <button class="btn btn-primary" type="button" data-resume-open>[ VIEW RESUME ]</button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <pre class="boot" id="boot" aria-live="polite"></pre>
+
+    <section aria-labelledby="about-h">
+      <h2 id="about-h" class="dim">$ cat about.md</h2>
+      <div id="about-body">
+        <p>placeholder: two or three lines about you — fill <code>public/site.json</code>. (reading this without JavaScript? that is fine too.)</p>
+      </div>
+    </section>
+
+    <section class="cta" aria-label="take action">
+      <button class="btn btn-primary" type="button" data-resume-open>[ VIEW RESUME ]</button>
+      <a class="btn" href="/contact.html">[ CONTACT ]</a>
+      <a class="btn" href="/secret.html" aria-label="a secret. probably.">[ ??? ]</a>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> <span data-name>YOUR.NAME</span> · all systems nominal</span>
+    <span>
+      <a href="mailto:hello@pabanks.io" data-email>hello@pabanks.io</a>
+      · <a href="https://github.com/your-handle" data-github>github.com/your-handle</a>
+      · <a href="https://linkedin.com/in/your-handle" data-linkedin>linkedin.com/in/your-handle</a>
+    </span>
+  </footer>
+
+  <!-- Resume gate: one-time token, 24h, 5 views -->
+  <dialog id="resume-modal" aria-labelledby="rm-title">
+    <form id="resume-form" method="post" action="/api/resume">
+      <h2 id="rm-title">$ sudo resume --view</h2>
+      <p class="dim">resume access is one-time. enter your email to get a session link.</p>
+      <label class="dim" for="rm-email">email:</label>
+      <input id="rm-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+      <label class="hp" aria-hidden="true"><span>website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      <p class="status" id="rm-status" role="status" aria-live="polite"></p>
+      <p class="faint small">your email is logged so I know who is reading. there is no newsletter and it will not be shared.</p>
+      <div class="row">
+        <button type="button" class="btn" id="rm-close">[ CANCEL ]</button>
+        <button type="submit" class="btn btn-primary">[ GRANT ACCESS ]</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/js/app.js" defer></script>
+  <script src="/js/terminal.js" defer></script>
+</body>
+</html>

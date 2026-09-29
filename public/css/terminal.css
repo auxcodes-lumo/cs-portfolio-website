@@ -1,0 +1,257 @@
+/* ================================================================
+   pabanks.io — retro amber VT100 / vintage CRT theme
+   text: #ffb000 · bg: #0d0d0d · scanlines · blinking cursor
+   ================================================================ */
+:root {
+  --fg: #ffb000;
+  --bg: #0d0d0d;
+  --fg-dim: rgba(255, 176, 0, 0.6);
+  --fg-faint: rgba(255, 176, 0, 0.28);
+  --font: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* CRT scanline texture — fixed overlay, never captures input */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 176, 0, 0.045) 0px,
+    rgba(255, 176, 0, 0.045) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+::selection { background: var(--fg); color: var(--bg); }
+
+a { color: var(--fg); }
+a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+
+/* Accessible keyboard focus (covers terminal mode, dialogs, forms) */
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+h1, h2, h3 { line-height: 1.3; margin: 0 0 0.75em; }
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.2rem; }
+p { margin: 0 0 1em; }
+
+.dim { color: var(--fg-dim); }
+.faint { color: var(--fg-faint); }
+.small { font-size: 0.85rem; }
+[hidden] { display: none !important; }
+
+/* Blinking cursor block */
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 0.15em;
+  background: var(--fg);
+  vertical-align: text-bottom;
+  animation: blink 1.1s steps(1, end) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Layout chrome */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 30;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 0.5em 1em;
+  text-decoration: none;
+}
+.skip-link:focus { left: 0; }
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--fg-faint);
+}
+.brand { font-weight: 700; }
+header nav { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+
+main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--fg-faint);
+  color: var(--fg-dim);
+  font-size: 0.9rem;
+}
+
+pre.boot { margin: 0 0 2rem; font: inherit; white-space: pre-wrap; min-height: 2.5em; }
+
+section { margin-bottom: 2.5rem; }
+
+.cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+
+/* Buttons */
+.btn {
+  font: inherit;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--fg);
+  padding: 0.55em 1.1em;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn:hover { background: var(--fg); color: var(--bg); }
+.btn-primary { font-weight: 700; }
+.btn:disabled { opacity: 0.5; cursor: wait; }
+
+/* Forms */
+label { display: block; margin-top: 1rem; }
+input, textarea {
+  display: block;
+  width: 100%;
+  margin-top: 0.35em;
+  font: inherit;
+  color: var(--fg);
+  background: rgba(255, 176, 0, 0.04);
+  border: 1px solid var(--fg-faint);
+  padding: 0.55em 0.75em;
+  caret-color: var(--fg);
+}
+input::placeholder, textarea::placeholder { color: var(--fg-faint); }
+input:focus, textarea:focus {
+  border-color: var(--fg);
+  box-shadow: 0 0 0 2px var(--fg-faint);
+}
+
+/* Honeypot — hidden from humans, tempting to bots */
+.hp { position: absolute; left: -9999px; }
+
+.status { min-height: 1.6em; margin: 1rem 0 0; }
+
+/* Resume page */
+.resume-head h1 { font-size: 2rem; }
+.job { margin-bottom: 1.5rem; }
+.skill-groups { list-style: none; padding: 0; }
+.skill-groups li { margin-bottom: 0.4em; }
+
+/* Dialogs (resume gate + print choice) */
+dialog {
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--fg);
+  padding: 1.5rem;
+  max-width: 480px;
+  width: calc(100% - 3rem);
+}
+dialog::backdrop { background: rgba(13, 13, 13, 0.85); }
+dialog h2 { margin-top: 0; }
+
+/* Terminal mode overlay */
+.terminal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background: var(--bg);
+}
+.term-head {
+  border-bottom: 1px solid var(--fg-faint);
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.term-output {
+  flex: 1;
+  margin: 0;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font: inherit;
+  padding: 0;
+}
+.term-input-row { display: flex; gap: 0.6em; align-items: baseline; }
+.term-input {
+  flex: 1;
+  margin: 0;
+  padding: 0.4em 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--fg-faint);
+}
+.term-input:focus { box-shadow: none; border-bottom-color: var(--fg); }
+
+/* Satire watermark (secret page) */
+main { position: relative; z-index: 1; }
+.satire {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  opacity: 0.05;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.satire span { white-space: nowrap; transform: rotate(-8deg); }
+
+/* Mobile — coarser scanlines to avoid banding artifacts */
+@media (max-width: 640px) {
+  body::before {
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255, 176, 0, 0.035) 0px,
+      rgba(255, 176, 0, 0.035) 2px,
+      transparent 2px,
+      transparent 8px
+    );
+  }
+  main { padding: 1.5rem 1rem 2.5rem; }
+  h1 { font-size: 1.35rem; }
+  .resume-head h1 { font-size: 1.6rem; }
+}
+
+/* Reduced motion — no blink, no smooth scroll */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .cursor { animation: none; }
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>contact — pabanks.io</title>
+  <meta name="description" content="Contact form for the pabanks.io cyber security portfolio.">
+  <link rel="icon" type="image/svg+xml" href="/assests/icons/blinking-cursor.svg">
+  <link rel="stylesheet" href="/css/terminal.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <header>
+    <span class="brand">pa@pabanks:~<span class="cursor" aria-hidden="true"></span></span>
+    <nav aria-label="primary">
+      <a href="/">home</a>
+      <a href="/secret.html" aria-label="a secret. probably.">[ ??? ]</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <h1>$ mail <span class="dim">-s</span> &quot;hello&quot; <span class="dim">you@example.com</span></h1>
+    <p class="dim">prefer async? write directly: <a href="mailto:hello@pabanks.io" data-email>hello@pabanks.io</a></p>
+
+    <form id="contact-form" action="/api/contact" method="post">
+      <label class="dim" for="c-email">email:</label>
+      <input id="c-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+
+      <label class="dim" for="c-message">message:</label>
+      <textarea id="c-message" name="message" rows="6" required minlength="5" maxlength="5000" placeholder="say hello…"></textarea>
+
+      <label class="hp" aria-hidden="true"><span>website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+
+      <p class="status" id="c-status" role="status" aria-live="polite"></p>
+      <div class="row">
+        <button type="submit" class="btn btn-primary">[ SEND ]</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> <span data-name>YOUR.NAME</span> · all systems nominal</span>
+    <span><a href="/">← back to home</a></span>
+  </footer>
+
+  <script src="/js/app.js" defer></script>
+  <script src="/js/forms.js" defer></script>
+</body>
+</html>

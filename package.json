@@ -1,0 +1,11 @@
+{
+  "name": "pabanks-portfolio",
+  "version": "1.0.0",
+  "description": "Cyber security portfolio — retro amber VT100 terminal theme. Static frontend (public/) + Netlify Functions (netlify_functions/).",
+  "private": true,
+  "scripts": {
+    "start": "npx --yes serve public -l 8080",
+    "functions": "npx --yes netlify dev"
+  },
+  "license": "MIT"
+}

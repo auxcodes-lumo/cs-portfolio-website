@@ -1,0 +1,43 @@
+/* ================================================================
+   pabanks.io — print stylesheet (resume only)
+   default: dark theme print (brand-true, uses ink)
+   body.print-light: black-and-white, ink-friendly
+   ================================================================ */
+@page {
+  size: A4;
+  margin: 14mm;
+}
+
+@media print {
+  body {
+    background: var(--bg) !important;
+    color: var(--fg) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body::before { display: none; }
+
+  header, footer, .no-print { display: none !important; }
+
+  main { max-width: none; margin: 0; padding: 0; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .cursor { animation: none; opacity: 1; }
+
+  h1, h2, h3 { break-after: avoid; }
+  section, .job { break-inside: avoid; }
+
+  /* Light (black & white) print mode — set body.print-light before window.print() */
+  body.print-light,
+  body.print-light * {
+    background: #fff !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: auto;
+    print-color-adjust: auto;
+    box-shadow: none !important;
+  }
+  body.print-light .dim,
+  body.print-light .faint { color: #000 !important; opacity: 0.75; }
+}
