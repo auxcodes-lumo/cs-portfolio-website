@@ -23,6 +23,13 @@
       const res = await fetch('/api/resume/validate?token=' + encodeURIComponent(token));
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok) throw new Error(data.error || 'access failed (' + res.status + ')');
+      // Resume body is injected server-side content (never in the static page).
+      const content = document.getElementById('resume-content');
+      if (content && typeof data.html === 'string') {
+        content.innerHTML = data.html;
+        // Site data loaded before this content arrived — re-apply placeholders.
+        if (window.__applySite && window.SITE) window.__applySite(window.SITE);
+      }
       if (gate) gate.hidden = true;
       if (body) body.hidden = false;
       const vl = document.getElementById('views-left');

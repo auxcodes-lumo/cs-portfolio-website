@@ -23,6 +23,8 @@
   const applySite = (s) => {
     const site = { ...FALLBACK, ...s };
     window.SITE = site;
+    // Hook for later-injected content (e.g. the server-fetched resume body).
+    window.__applySite = applySite;
     $$('[data-name]').forEach((el) => { el.textContent = site.name; });
     $$('[data-title]').forEach((el) => { el.textContent = site.title; });
     $$('[data-email]').forEach((el) => {
@@ -58,7 +60,7 @@
     const title = (window.SITE && window.SITE.title) || FALLBACK.title;
     const tagline = (window.SITE && window.SITE.tagline) || FALLBACK.tagline;
     const lines = [
-      ['pa@pabanks:~$ ./boot.sh', ''],
+      ['visitor@website:~$ ./boot.sh', ''],
       ['[ ok ] loading identity', 'dim'],
       ['[ ok ] loading skills', 'dim'],
       ['[ ok ] threat models: active', 'dim'],
@@ -128,18 +130,6 @@
     });
   };
 
-  /* ---- terminal mode toggle (landing page) ---- */
-  const wireTerminal = () => {
-    const btn = $('#terminal-toggle');
-    const T = window.Terminal;
-    if (!btn || !T) return;
-    const sync = () => btn.setAttribute('aria-pressed', String(T.isActive()));
-    btn.addEventListener('click', () => { T.toggle(); sync(); });
-    T.subscribe(sync);
-    T.restore();
-    sync();
-  };
-
   const year = $('#year');
   if (year) year.textContent = String(new Date().getFullYear());
 
@@ -149,7 +139,6 @@
   };
   ready(() => {
     wireResume();
-    wireTerminal();
     loadSite().then(typeBoot);
   });
 })();

@@ -4,12 +4,28 @@
 
 # Keep the gated resume page out of search indexes
 [[headers]]
-  for = "/resume*"
+  for = "/resume.html"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
 # Pretty API routes: /api/<fn> -> /.netlify/functions/<fn>
+# Specific route first: the resume function is a single file, so the
+# /validate suffix is stripped and routing happens by HTTP method in code.
+[[redirects]]
+  from = "/api/resume/validate"
+  to = "/.netlify/functions/resume"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+
+# Curl payoff: curl/wget/httpie hitting / get the plain-text help banner.
+[edge_functions]
+  path = "edge-functions"
+
+[[edge_functions]]
+  function = "front-door"
+  path = "/"

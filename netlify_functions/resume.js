@@ -1,8 +1,13 @@
 // resume.js — gated resume access (spec: one-time token, 24h expiry, 5 views)
 //   POST /api/resume                  { email }            -> { ok, token }
-//   GET  /api/resume/validate?token=  ?token=…             -> { ok, viewsLeft }
+//   GET  /api/resume/validate?token=  ?token=…             -> { ok, viewsLeft, html }
 // Tokens are stored in Netlify Blobs: store "resume-tokens", key "<token>.json"
+// The resume body lives in ./resume-content.html (NOT in public/): content only
+// crosses the wire after server-side token validation.
+// Routing is by HTTP method, not path suffix — /api/resume/validate redirects
+// to this same function (see netlify.toml).
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import { getStore } from '@netlify/blobs';
 import { sendResumeViewNotification } from './mailer.js';
 
@@ -44,10 +49,8 @@ export const handler = async (event) => {
   const ip = String(
     (event.requestHeaders && (event.requestHeaders['x-forwarded-for'] || event.requestHeaders['x-real-ip'])) || 'unknown'
   ).split(',')[0].trim();
-  const isValidate = event.path.includes('/validate');
-
   // ---- issue a token ----
-  if (event.httpMethod === 'POST' && !isValidate) {
+  if (event.httpMethod === 'POST') {
     let body;
     try {
       body = parseBody(event);
@@ -81,7 +84,7 @@ export const handler = async (event) => {
   }
 
   // ---- validate + consume one view ----
-  if (event.httpMethod === 'GET' && isValidate) {
+  if (event.httpMethod === 'GET') {
     const token = (event.queryStringParameters && event.queryStringParameters.token) || '';
     if (!TOKEN_RE.test(token)) return json(400, { ok: false, error: 'invalid token' });
 
@@ -106,7 +109,17 @@ export const handler = async (event) => {
     record.views += 1;
     await store.putBlob(key, JSON.stringify(record));
     console.log(`resume: view #${record.views}/${MAX_VIEWS} at ${new Date(now).toISOString()}`);
-    return json(200, { ok: true, viewsLeft: MAX_VIEWS - record.views });
+
+    // Serve the resume body from the private template (never in public/).
+    let html = '';
+    try {
+      html = fs.readFileSync(new URL('./resume-content.html', import.meta.url), 'utf8');
+    } catch (e) {
+      console.error('resume: failed to load resume content:', e.message);
+      return json(500, { ok: false, error: 'resume content unavailable' });
+    }
+
+    return json(200, { ok: true, viewsLeft: MAX_VIEWS - record.views, html });
   }
 
   return json(405, { ok: false, error: 'method not allowed' });

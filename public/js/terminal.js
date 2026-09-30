@@ -3,7 +3,7 @@
   'use strict';
 
   const KEY = 'pb_terminal';
-  const PROMPT = 'pa@pabanks:~$';
+  const PROMPT = 'phill@website:~$';
   let overlay = null;
   let out = null;
   let input = null;
@@ -40,7 +40,6 @@
     '  ls        what is on this site',
     '  contact   how to reach me',
     '  resume    resume access info',
-    '  secret    …classified…',
     '  clear     clear the screen',
     '  exit      leave terminal mode      (alias: q, or press ESC)',
   ].join('\n');
@@ -51,15 +50,11 @@
     '-h': () => write(HELP),
     whoami: () => write(SITE.name),
     about: () => write(`${SITE.name} — ${SITE.title}\nplaceholder bio: fill me in on the landing page at ${SITE.website}`),
-    ls: () => write('index.html   contact.html   resume.html [locked: one-time token]   secret.html [???]'),
+    ls: () => write('index.html   contact.html   resume.html [locked: one-time token]'),
     contact: () => write(`mail    : ${SITE.email}\ngithub  : ${SITE.github}\nlinkedin: ${SITE.linkedin}`),
     resume: () => write(
-      'resume access is one-time (24 h, 5 views). in a browser, press [ VIEW RESUME ]:\n  ' + SITE.website
+      'resume access is one-time (24 h, 5 views). in a browser, press [ RESUME ]:\n  ' + SITE.website
     ),
-    secret: () => {
-      write('decryption complete — routing…');
-      window.setTimeout(() => window.location.assign('/secret.html'), 400);
-    },
     clear: () => { out.textContent = ''; },
     exit: () => deactivate(),
     q: () => deactivate(),

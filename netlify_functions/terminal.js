@@ -46,7 +46,7 @@ const pages = {
     'resume access is one-time: enter your email on the site to get a',
     'session link (24h expiry, 5 views). your email is logged so the',
     'owner knows who is reading — no newsletter, not shared.',
-    `  open ${SITE.url} in a browser and press [ VIEW RESUME ]`,
+    `  open ${SITE.url} in a browser and press [ RESUME ]`,
   ].join('\n'),
 
   site: [

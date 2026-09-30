@@ -98,6 +98,16 @@ header {
 .brand { font-weight: 700; }
 header nav { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
 
+/* Nav links: halfway between a button and a link — [ text ] */
+.navlink {
+  text-decoration: none;
+  border: 1px solid var(--fg-faint);
+  padding: 0.3em 0.7em;
+}
+a.navlink:hover, a.navlink:focus-visible { text-decoration: none; }
+a.navlink:hover { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.navlink-current { border-color: var(--fg); font-weight: 700; }
+
 main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
 
 footer {
@@ -211,23 +221,6 @@ dialog h2 { margin-top: 0; }
   border-bottom: 1px solid var(--fg-faint);
 }
 .term-input:focus { box-shadow: none; border-bottom-color: var(--fg); }
-
-/* Satire watermark (secret page) */
-main { position: relative; z-index: 1; }
-.satire {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  opacity: 0.05;
-  font-size: 2.5rem;
-  font-weight: 700;
-}
-.satire span { white-space: nowrap; transform: rotate(-8deg); }
 
 /* Mobile — coarser scanlines to avoid banding artifacts */
 @media (max-width: 640px) {

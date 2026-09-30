@@ -6,7 +6,7 @@
   <title>resume — pabanks.io</title>
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="Gated resume. A one-time token is required.">
-  <link rel="icon" type="image/svg+xml" href="/assests/icons/blinking-cursor.svg">
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/blinking-cursor.svg">
   <link rel="stylesheet" href="/css/terminal.css">
   <link rel="stylesheet" href="/css/print.css">
 </head>
@@ -14,10 +14,11 @@
   <a class="skip-link" href="#main">skip to content</a>
 
   <header class="no-print">
-    <span class="brand">pa@pabanks:~<span class="cursor" aria-hidden="true"></span></span>
+    <span class="brand">phill@website:resume<span class="cursor" aria-hidden="true"></span></span>
     <nav aria-label="primary">
-      <a href="/">home</a>
-      <a href="/contact.html">contact</a>
+      <a class="navlink" href="/"><span>[ home ]</span></a>
+      <a class="navlink" href="/contact.html"><span>[ contact ]</span></a>
+      <span class="navlink navlink-current" aria-current="page"><span>[ resume ]</span></span>
     </nav>
   </header>
 
@@ -29,65 +30,17 @@
       <p><a class="btn" href="/"><span>[ GET ONE ]</span></a></p>
     </section>
 
-    <!-- Resume body -->
+    <!-- Resume body: an empty shell on purpose.
+         The actual resume content only crosses the wire after server-side
+         token validation — see netlify_functions/resume.js + resume-content.html. -->
     <article id="resume-body" hidden>
       <p class="faint small no-print">disclaimer: your email was logged so I know who is reading. no newsletter, not shared.</p>
       <p class="faint small no-print" id="views-left"></p>
       <div class="no-print row">
-        <button class="btn btn-primary" type="button" id="print-btn">[ PRINT / SAVE PDF ]</button>
-        <a class="btn" href="/contact.html">[ CONTACT ]</a>
+        <button class="btn btn-primary" type="button" id="print-btn"><span>[ PRINT / SAVE PDF ]</span></button>
+        <a class="btn" href="/contact.html"><span>[ CONTACT ]</span></a>
       </div>
-
-      <header class="resume-head">
-        <h1 data-name>YOUR.NAME</h1>
-        <p class="dim" data-title>Cyber Security</p>
-        <p class="dim" data-email>hello@pabanks.io</p>
-        <p class="dim"><span data-github>github.com/your-handle</span> · <span data-linkedin>linkedin.com/in/your-handle</span></p>
-      </header>
-
-      <section>
-        <h2>$ cat summary.md</h2>
-        <p>placeholder: two or three sentences — who you are, what you are looking for. this page is a living HTML resume: edit it directly, no PDF pipeline.</p>
-      </section>
-
-      <section>
-        <h2>$ ls experience/</h2>
-        <div class="job">
-          <h3>[JOB TITLE] — [COMPANY] <span class="dim">[20XX]–[present]</span></h3>
-          <ul>
-            <li>placeholder: an achievement with a measurable outcome…</li>
-            <li>placeholder: a tool or technology, and the impact it had…</li>
-          </ul>
-        </div>
-        <div class="job">
-          <h3>[JOB TITLE] — [COMPANY] <span class="dim">[20XX]–[20XX]</span></h3>
-          <ul>
-            <li>placeholder: second role, same treatment…</li>
-          </ul>
-        </div>
-      </section>
-
-      <section>
-        <h2>$ man skills</h2>
-        <ul class="skill-groups">
-          <li><span class="dim">offensive:</span> placeholder — pentesting, web app security…</li>
-          <li><span class="dim">defensive:</span> placeholder — SIEM, SOC, incident response…</li>
-          <li><span class="dim">tooling:</span> placeholder — Kali, Burp Suite, Wireshark…</li>
-          <li><span class="dim">cloud:</span> placeholder — AWS/Azure security, IAM…</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>$ cat certifications.txt</h2>
-        <ul>
-          <li>placeholder — e.g. CompTIA Security+, CEH, OSCP (add yours)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>$ cat education.txt</h2>
-        <p>placeholder — degree / bootcamp / self-taught, with year.</p>
-      </section>
+      <div id="resume-content"></div>
     </article>
   </main>
 
@@ -96,9 +49,9 @@
     <h2 id="pm-title">$ lp -o format=?</h2>
     <p class="dim">choose a print format:</p>
     <div class="row">
-      <button class="btn" type="button" id="print-dark">[ DARK · amber ]</button>
-      <button class="btn" type="button" id="print-light">[ LIGHT · black &amp; white ]</button>
-      <button class="btn" type="button" id="print-cancel">[ CANCEL ]</button>
+      <button class="btn" type="button" id="print-dark"><span>[ DARK · amber ]</span></button>
+      <button class="btn" type="button" id="print-light"><span>[ LIGHT · black &amp; white ]</span></button>
+      <button class="btn" type="button" id="print-cancel"><span>[ CANCEL ]</span></button>
     </div>
   </dialog>
 
