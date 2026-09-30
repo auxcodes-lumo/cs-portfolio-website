@@ -27,12 +27,7 @@
     window.__applySite = applySite;
     $$('[data-name]').forEach((el) => { el.textContent = site.name; });
     $$('[data-title]').forEach((el) => { el.textContent = site.title; });
-    $$('[data-email]').forEach((el) => {
-      el.textContent = site.email;
-      if (el.tagName === 'A') el.setAttribute('href', 'mailto:' + site.email);
-    });
     $$('[data-github]').forEach((el) => { el.textContent = site.github; el.setAttribute('href', 'https://' + site.github); });
-    $$('[data-linkedin]').forEach((el) => { el.textContent = site.linkedin; el.setAttribute('href', 'https://' + site.linkedin); });
     const about = $('#about-body');
     if (about && Array.isArray(site.about)) {
       about.innerHTML = site.about.map((p) => `<p>${esc(p)}</p>`).join('');
