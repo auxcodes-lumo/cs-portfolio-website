@@ -18,9 +18,9 @@ const call = async (handler, event) => {
   return { status: r.statusCode, data };
 };
 
-const { handler: resumeHandler } = await import('./resume.js');
-const { handler: contactHandler } = await import('./contact.js');
-const { handler: terminalHandler } = await import('./terminal.js');
+const { handler: resumeHandler } = await import('../website/netlify_functions/resume.js');
+const { handler: contactHandler } = await import('../website/netlify_functions/contact.js');
+const { handler: terminalHandler } = await import('../website/netlify_functions/terminal.js');
 
 /* ---- resume: issue + 5-view lifecycle ---- */
 const ip = { 'x-forwarded-for': '203.0.113.9' };
